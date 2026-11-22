@@ -284,8 +284,8 @@
       .sys-btn.reset-btn.armed { background: var(--danger-bg); color: #fff; border-color: #6d0d0d; }
       .share-text { background: var(--panel2); border: 1px dashed var(--line); border-radius: 10px; padding: 8px 10px; font-size: 13.5px; word-break: break-all; }
       #qrBox { display: flex; justify-content: center; padding: 10px 0 2px; }
-      #qrBox table { border-collapse: collapse; }
-      .ad-space { height: 120px; }
+      #qrBox img { width: 148px; height: 148px; background: #fff; padding: 6px; border-radius: 8px; }
+      .ad-space { min-height: 120px; text-align: center; padding: 10px 0; }
 
       /* ===== Route / relic / event choices ===== */
       #relicBar { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
@@ -457,7 +457,7 @@
           <button class="sys-btn" id="shareBtn" type="button">📤 共有する</button>
           <button class="sys-btn" id="copyBtn" type="button">🔗 リンクをコピー</button>
         </div>
-        <div id="qrBox" aria-label="QRコード"></div>
+        <div id="qrBox"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyAQAAAADAX2ykAAAC2klEQVR4nO2cUWrkMAxAn9aG/XRgDjBHydygR+qZ9gbxUfYABfuz4EH7YTuTGbYthWmIQfowifM+BEK2LMkR5TsSf30LB+ONN/5H+SxNLn1SLtlDrLOe/t3vo4/xT+Q94AoAAlevABonh8xpoq7e8wKQTzvoY/xP8M05828VmUBeE+gSCtWTyat3H1N/4z8S//CubSgI4a168p76GP9c/tG+QkgIuKJkj8wP8fXR9Df+c6n23Rox+1Jf40vxGsUVCArkPfQx/rk8qqk/zsnpf4cmTnU5mv7GfyG6keQ2Q/26hC1g9h2N52ZLZtX1qVTTQtDNV7PvaDyqWtAFp6qpnYpUtUBdkKuRS129zb6j8c2Wcx1Utx/q/ru6eDD/HY+/Mx5Oqzu3mKu9MidsfR6T37hp3XVVtUbN1chzAl06Z/Ydje++GlpA1YfSzZ2cNte189GAfPfLoH2v7eFWO//WSAts/x2S7wty99AWJgftpu2hs+2/Q/IecisDCrTSAq1S6LTOxcmh5FM5nv7GfyG3gLmv1OtZF2j5DTv/jspvAuaWaw7r/rsafsHOv4PyHvKpaDwXNJ5b1gpCQqOAzEvxwFUge1ufh+PXXCQtf7XGUtWTm//2OoT572D8mr8qa6XB6S0dDZuV2vbfUXnV5FQugKq+i7xqgXguMKerACByLrvpY/yz+Nq/IYQ3X7sm63Q+Fcge4lnXOdt/R+V1yR65hHepZyHqkypkEaL87sv1MfU3/kN56N+ox6CWk15rSmlNbB1Nf+O/kG3/1VoJvg+3+sHY4ufx+BYXtyRHa7jaFnzvImmz72h8j6/qJRVXmP/6omRXiALMaarhlcbLHvoY/1z+sb8duIrGl9Ja2+MESp6QOdn9o/F5ueBa1EwWkVdVFTn3IsPh9Tf+Xu7uL4SW1WiXVEJNPXvmP7KXPsY/l7+/vwC3JtltO+Wte+do+hv/uYj9n8F444fl/wH6E14oaarbswAAAABJRU5ErkJggg==" alt="ぽちぽちダンジョンのQRコード" width="148" height="148"></div>
         <p class="hint center" id="qrUrl"></p>
         <h2 style="margin-top:18px;">💾 引き継ぎコード</h2>
         <p class="hint">コードを発行して控えておくと、別の端末でも続きから遊べるよ。</p>
@@ -472,7 +472,11 @@
         <button class="sys-btn reset-btn" id="resetBtn" type="button">🗑️ データをリセット</button>
       </section>
 
-      <div class="ad-space" aria-hidden="true"></div>
+      <div class="ad-space">
+        <!-- admax -->
+        <script src="https://adm.shinobi.jp/s/53d2cc2dd0fca45eb61daee25c5664f1"></script>
+        <!-- admax -->
+      </div>
     </div>
 
     <div id="toastWrap" aria-live="polite"></div>
@@ -481,7 +485,6 @@
       <div class="modal" role="dialog" aria-modal="true" id="modalBox"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script>
     'use strict';
     /* ================= Data ================= */
@@ -2077,13 +2080,6 @@
       var text = 'ぽちぽちダンジョンで最深フロア' + state.bestFloor + 'に到達！ #ぽちぽちダンジョン ' + SHARE_URL;
       $('shareText').textContent = text;
       $('qrUrl').textContent = SHARE_URL;
-      var box = $('qrBox'); box.innerHTML = '';
-      try {
-        if (typeof qrcode !== 'undefined') {
-          var qr = qrcode(0, 'M'); qr.addData(SHARE_URL); qr.make();
-          box.innerHTML = qr.createTableTag({ cellSize: 4, margin: 8 });
-        }
-      } catch (e) {}
       $('soundBtn').textContent = state.sound ? '🔊' : '🔇';
       $('soundBtn2').textContent = '効果音：' + (state.sound ? 'ON' : 'OFF');
     }
